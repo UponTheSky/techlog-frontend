@@ -27,3 +27,12 @@ export interface MainResponse {
     articles: Url;
   };
 }
+
+export interface CurrentPageArticlesResponse {
+  info: {
+    totalArticlesCount: number;
+    totalPagesCount: number;
+    currentPage: number;
+  };
+  articles: Article[];
+}
