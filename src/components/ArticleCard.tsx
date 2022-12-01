@@ -15,7 +15,7 @@ export function ArticleCard({
 }: ArticleCardProps) {
   return (
     <Card style={{ width: '18rem' }} onClick={() => {}}> {/* link to the individual article page for reading */}
-      <Card.Img variant="top" src={thumbnail ?? DEFAULT_THUMBNAIL} />
+      <Card.Img variant="top" src={thumbnail ?? DEFAULT_THUMBNAIL}  />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{excerpt ? excerpt.slice(EXCERPT_LIMIT_SIZE) + '...' : null}</Card.Text>
