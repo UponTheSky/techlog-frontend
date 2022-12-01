@@ -36,3 +36,12 @@ export interface CurrentPageArticlesResponse {
   };
   articles: Article[];
 }
+
+export interface MeResponse {
+  profile: Url;
+  shortIntro: Url;
+  education: Url;
+  workExperience: Url;
+  compSci: Url;
+  hobbies: Url;
+}
