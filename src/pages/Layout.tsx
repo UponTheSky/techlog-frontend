@@ -1,13 +1,12 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 import { Footer } from '../components/Footer';
 
-interface LayoutProps extends React.PropsWithChildren {}
-
-export function Layout({ children }: LayoutProps) {
+export function Layout() {
   return (
     <div>
-      {children}
+      <Outlet />
       <Footer />
     </div>
   ); 

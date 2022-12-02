@@ -1,54 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { Article, CurrentPageArticlesResponse } from '../../types';
+import { useParams } from 'react-router-dom';
 
+import { Article, CurrentPageArticlesResponse } from '../../types';
 import { fetchCurrentPageArticlesResponse } from '../../api/articles';
+
+import { LoadingPage } from '../Loading';
 import { ArticleList } from '../../components/ArticleList';
 import { CustomPagination } from '../../components/CustomPagination';
 
 import Stack from 'react-bootstrap/Stack';
-import Pagination from 'react-bootstrap/Pagination';
 
 
 export function AdminArticlesPage() {
-  // const [pageInfo, setPageInfo] = useState<CurrentPageArticlesResponse['info']>({
-  //   totalArticlesCount: 0, totalPagesCount: 0, currentPage: 0
-  // });
-  // const [articles, setArticles] = useState<Article[]>([]);
+  const { currentPage } = useParams();
+  const [pageInfo, setPageInfo] = useState<CurrentPageArticlesResponse['info'] | null>(null);
+  const [articles, setArticles] = useState<Article[]>([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await fetchCurrentPageArticlesResponse(pageInfo.currentPage);
-  //     if (data) {
-  //       setPageInfo(data.info);
-  //       setArticles(data.articles);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async (currentPage: number) => {
+      const data = await fetchCurrentPageArticlesResponse(currentPage);
+      if (data) {
+        setPageInfo(data.info);
+        setArticles(data.articles);
+      }
+    };
 
-  //   fetchData();
-  // }, [pageInfo]);
+    currentPage && fetchData(Number(currentPage));
+  }, [pageInfo]);
 
-  // const handleSetCurrentPage = (currentPage: number) => () => {
-  //   setPageInfo(prev => ({ ...prev, currentPage }));
-  // }
+  const handleSetCurrentPage = (pageNumber: number) => () => {
+    setPageInfo(prev => {
+      if (prev) {
+        return { ...prev, currentPage: pageNumber };
+      } 
+      return null;
+    });
+  };
 
-  const pageInfo = {
-    totalArticlesCount: 1,
-    totalPagesCount: 1,
-    currentPage: 0
+  if (!(pageInfo && articles)) {
+    return <LoadingPage />;
   }
-  
-  const articles = [
-    {
-      id: 1,
-      createdAt: new Date(Date.now()),
-      updatedAt: new Date(Date.now()),
-      thumbnail: null,
-      title: 'test',
-      excerpt: 'testtesttest',
-      content: 'hey',
-      articleId: '1'
-    }
-  ]
 
   return (
     <Stack gap={5} className="col-md-10 mx-auto pt-5 align-items-center">
@@ -57,6 +48,7 @@ export function AdminArticlesPage() {
       <CustomPagination 
         totalPagesCount={pageInfo.totalPagesCount} 
         currentPage={pageInfo.currentPage} 
+        handleSetCurrentPage={handleSetCurrentPage}
       />
     </Stack>
   );

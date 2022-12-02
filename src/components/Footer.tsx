@@ -1,5 +1,9 @@
 import React from 'react';
 
 export function Footer() {
-  return <span className="col-md-8 mx-auto py-5">@2022 Copyright by Sung Ju Yea</span>;
+  return (
+    <div className="col-md-3 mx-auto py-5">
+      <span>@2022 Copyright by Sung Ju Yea</span>
+    </div>
+  );
 }

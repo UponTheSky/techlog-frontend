@@ -1,51 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { ArticleList } from '../../components/ArticleList';
+
 import { MainResponse } from '../../types';
 import { fetchMainResponse } from '../../api/main';
+
+import { LoadingPage } from '../Loading';
+import { ArticleList } from '../../components/ArticleList';
 
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
-import { BACKEND_URL } from '../../consts';
+
 
 export function Main() {
-  // const [mainUrls, setMainUrl] = useState<MainResponse['mainUrls']>({
-  //   picture: 'http://localhost:3000/src/mock/logo.png', shortIntro: 'http://localhost:3000/src/mock/shortIntro.txt'
-  // });
-  // const [articles, setArticles] = useState<MainResponse['articles']>([]);
-  // const [menuUrls, setMenuUrls] = useState<MainResponse['menuUrls']>({
-  //   me: '', articles: ''
-  // });
+  const [mainUrls, setMainUrl] = useState<MainResponse['mainUrls'] | null>(null);
+  const [articles, setArticles] = useState<MainResponse['articles']>([]);
+  const [menuUrls, setMenuUrls] = useState<MainResponse['menuUrls'] | null>(null);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await fetchMainResponse();
-  //     if (data) {
-  //       setMainUrl(data.mainUrls);
-  //       setArticles(data.articles);
-  //       setMenuUrls(data.menuUrls);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchMainResponse();
+      if (data) {
+        setMainUrl(data.mainUrls);
+        setArticles(data.articles);
+        setMenuUrls(data.menuUrls);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
-  const mainUrls = {
-    picture: "https://www.looper.com/img/gallery/disneys-moana-almost-had-a-completely-different-main-character/intro-1663976926.webp",
-    shortIntro: "hey ya"
-  };
-  
-  const articles = [
-    {
-      id: 1,
-      createdAt: new Date(Date.now()),
-      updatedAt: new Date(Date.now()),
-      thumbnail: null,
-      title: 'test',
-      excerpt: 'fdsafdearaea',
-      content: 'hey',
-      articleId: '1'
-    }
-  ]
+    fetchData();
+  }, []);
+
+  if (!(mainUrls && articles && menuUrls)) {
+    return <LoadingPage />;
+  }
 
   return (
     <Stack gap={5} className="col-md-5 mx-auto pt-5 pb-5">

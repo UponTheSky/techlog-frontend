@@ -1,6 +1,10 @@
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
+import { Article } from '../../types';
+import { fetchIndividualArticlesResponse } from '../../api/admin';
+
+import { LoadingPage } from '../Loading';
 import { SingleArticle } from '../../components/SingleArticle';
 
 import Form from 'react-bootstrap/Form';
@@ -11,34 +15,23 @@ import Button from 'react-bootstrap/Button';
 
 
 export function AdminArticlesEditPage() {
-  // const articleId = '1'; // use useParams https://reactrouter.com/en/main/hooks/use-params
-  // const [article, setArticle] = useState<Article | null>(null);
+  const { articleId } = useParams();
+  const [article, setArticle] = useState<Article | null>(null);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await fetchIndividualArticlesResponse(articleId);
-  //     if (data) {
-  //       setArticle(data);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async (articleId: Article['articleId']) => {
+      const data = await fetchIndividualArticlesResponse(articleId);
+      if (data) {
+        setArticle(data);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    articleId && fetchData(articleId);
+  }, []);
 
-  // if (!article) {
-  //   return <p>loading ...</p>
-  // }
-
-  const article = {
-    id: 1,
-    createdAt: new Date(Date.now()),
-    updatedAt: new Date(Date.now()),
-    thumbnail: null,
-    title: 'test',
-    excerpt: 'testtesttest',
-    content: '- hadaewaff4fwfgrwagreagteagteagwFegreagreafewafrteagedzfrasfsafdsafdsaaewaeraesaeafeafewaeaesaesaesafesdfsaeaeagedzfrasfsafdsafdsaaewaeraesaeafeafewaeaesaesaesafesdfsaeeagedzfrasfsafdsafdsaaewaeraesaeafeafewaeaesaesaesafesdfsaeeagedzfrasfsafdsafdsaaewaeraesaeafeafewaeaesaesaesafesdfsaeeagedzfrasfsafdsafdsaaewaeraesaeafeafewaeaesaesaesafesdfs',
-    articleId: '1'
-  };
+  if (!article) {
+    return <LoadingPage />;
+  }
 
   return (
     <div>
@@ -46,7 +39,7 @@ export function AdminArticlesEditPage() {
         <Form className="py-3">
           <Form.Group controlId="Admin.articles.edit">
             <Form.Label>Edit your article</Form.Label>
-            <Form.Control as='textarea' placeholder={article.content ?? 'Edit your article'} rows={10} cols={100}/>
+            <Form.Control as='textarea' rows={10} cols={100}>{article.content ?? 'Edit your article'}</Form.Control>
           </Form.Group>
         </Form>
         <Container>

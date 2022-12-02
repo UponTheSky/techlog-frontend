@@ -10,6 +10,8 @@ export const makeGetRequest = <T>(url: string) => async () => {
     const response = await apiClient.get<T>(url);
     return response.data;
   } catch(error) {
-    return null;
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 }

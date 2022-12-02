@@ -1,36 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { fetchMeResponse } from '../../api/me';
+
 import { MeResponse } from '../../types';
+import { fetchMeResponse } from '../../api/me';
+
+import { LoadingPage } from '../Loading';
 import { InfoPiece } from '../../components/InfoPiece';
 
 import Stack from 'react-bootstrap/Stack';
 import Img from 'react-bootstrap/Image';
 
-export function Me() {
-  // const [meInfo, setMeInfo] = useState<MeResponse | null>(null);
+
+export function MePage() {
+  const [meInfo, setMeInfo] = useState<MeResponse | null>(null);
   
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await fetchMeResponse();
-  //     if (data) {
-  //       setMeInfo(data);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchMeResponse();
+      if (data) {
+        setMeInfo(data);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
-
-  const meInfo = {
-    profile: "https://www.looper.com/img/gallery/disneys-moana-almost-had-a-completely-different-main-character/intro-1663976926.webp",
-    shortIntro: "# hey \n - why",
-    workExperience: "hey",
-    education: "ayy",
-    compSci: "seatefa",
-    hobbies: "eafesa"
-  }
+    fetchData();
+  }, []);
 
   if (!meInfo) {
-    return <p>loading...</p>;
+    return <LoadingPage />;
   }
 
   return (
