@@ -1,6 +1,15 @@
 import axios from 'axios';
 import { BACKEND_URL } from '../consts';
 
-export const apiClient = axios.create({ 
+const apiClient = axios.create({ 
   baseURL: BACKEND_URL
 });
+
+export const makeGetRequest = <T>(url: string) => async () => {
+  try {
+    const response = await apiClient.get<T>(url);
+    return response.data;
+  } catch(error) {
+    return null;
+  }
+}

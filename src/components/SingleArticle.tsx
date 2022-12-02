@@ -14,7 +14,7 @@ interface SingleArticleProps extends React.PropsWithChildren {
 
 export function SingleArticle({ articleInfo, children }: SingleArticleProps ) {
   return (
-    <Container>
+    <Container className="pt-2 pb-5">
       <Navbar bg="primary" variant="dark" sticky="top">
         {/* TODO: wrap this part with <Link>, and use useNavigate*/}
         <Container>
