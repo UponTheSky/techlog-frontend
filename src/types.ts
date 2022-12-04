@@ -45,3 +45,8 @@ export interface MeResponse {
   compSci: Url;
   hobbies: Url;
 }
+
+export interface LoginDTO {
+  userId: string;
+  password: string;
+}

@@ -1,20 +1,37 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import { AdminArticlesPage } from './Admin.articles';
-import { AdminArticlesEditPage } from './Admin.articles.edit';
+import { AdminArticlesCreatePage } from './Admin.articles.create';
+import { AdminArticlesUpdatePage } from './Admin.articles.update';
 import { AdminLoginPage } from './Admin.login';
+import { AdminMainPage } from './Admin.main';
 
-export const adminArticlesRoute: RouteObject = {
-  path: 'admin/articles',
+const adminArticlesRoute: RouteObject = {
+  path: 'articles',
   element: <AdminArticlesPage />
 };
 
-export const adminArticlesEditRoute: RouteObject = {
-  path: 'admin/articles/:articlesId',
-  element: <AdminArticlesEditPage />
+const adminArticlesCreateRoute: RouteObject = {
+  path: 'articles/create',
+  element: <AdminArticlesCreatePage />
 };
 
-export const adminLoginRoute: RouteObject = {
-  path: 'admin/login',
+const adminArticlesUpdateRoute: RouteObject = {
+  path: 'articles/update/:articlesId',
+  element: <AdminArticlesUpdatePage />
+};
+
+const adminLoginRoute: RouteObject = {
+  path: 'login',
   element: <AdminLoginPage />
+};
+
+export const adminMainRoute: RouteObject = {
+  path: 'admin',
+  element: <AdminMainPage />,
+  children: [
+    adminArticlesRoute,
+    adminArticlesUpdateRoute,
+    adminLoginRoute
+  ]
 };

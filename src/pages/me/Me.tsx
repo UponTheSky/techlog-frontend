@@ -4,6 +4,7 @@ import { MeResponse } from '../../types';
 import { fetchMeResponse } from '../../api/me';
 
 import { LoadingPage } from '../Loading';
+import { PreviousNavbar } from '../../components/previousNavbar';
 import { InfoPiece } from '../../components/InfoPiece';
 
 import Stack from 'react-bootstrap/Stack';
@@ -29,13 +30,16 @@ export function MePage() {
   }
 
   return (
-    <Stack gap={5} className="col-md-8 mx-auto pt-5 align-items-center">
-      <Img src={meInfo.profile} />
-      <InfoPiece content={meInfo.shortIntro} />
-      <InfoPiece content={meInfo.workExperience} />
-      <InfoPiece content={meInfo.education} />
-      <InfoPiece content={meInfo.compSci} />
-      <InfoPiece content={meInfo.hobbies} />
-    </Stack>
+    <div className="col-md-8 mx-auto pt-5 pb-5 align-items-center">
+      <PreviousNavbar />
+      <Stack gap={5}>
+        <Img src={meInfo.profile} />
+        <InfoPiece content={meInfo.shortIntro} />
+        <InfoPiece content={meInfo.workExperience} />
+        <InfoPiece content={meInfo.education} />
+        <InfoPiece content={meInfo.compSci} />
+        <InfoPiece content={meInfo.hobbies} />
+      </Stack>
+    </div>
   );
 }

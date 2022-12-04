@@ -1,12 +1,35 @@
-import { CurrentPageArticlesResponse, Article } from '../types';
-import { makeGetRequest } from './axios';
+import { CurrentPageArticlesResponse, Article, LoginDTO } from '../types';
+import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from './axios';
 
 const adminUrl = '/api/admin';
 
 export const fetchCurrentPageArticlesResponse = (
-  currentPage: number
-) => makeGetRequest<CurrentPageArticlesResponse>(`${adminUrl}/articles?currentPage=${currentPage}`)();
+  currentPage: number,
+  token: string,
+) => makeGetRequest<CurrentPageArticlesResponse>(`${adminUrl}/articles?currentPage=${currentPage}`, token)();
 
 export const fetchIndividualArticlesResponse = async (
-  articleId: Article['articleId']
-) => makeGetRequest<Article>(`${adminUrl}/articles/${articleId}`)();
+  articleId: Article['articleId'], 
+  token: string
+) => makeGetRequest<Article>(`${adminUrl}/articles/${articleId}`, token)();
+
+export const createArticle = (
+  data: Partial<Article>,
+  token: string
+) => makePostRequest<Partial<Article>, Article>(`${adminUrl}/articles`, token)(data);
+
+export const updateArticle = (
+  articleId: Article['articleId'], 
+  data: Partial<Article>,
+  token: string
+) => makePutRequest<Partial<Article>, Article>(`${adminUrl}/articles/${articleId}`, token)(data);
+
+export const deleteArticle = (
+  articleId: Article['articleId'],
+  token: string
+) => makeDeleteRequest<Article>(`${adminUrl}/articles/${articleId}`, token)();
+
+export const login = (
+  userId: string, 
+  password: string
+) => makePostRequest<LoginDTO, string>(`${adminUrl}/login`)({ userId, password });
