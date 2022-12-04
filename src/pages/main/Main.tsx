@@ -16,33 +16,31 @@ import Col from 'react-bootstrap/Col';
 
 
 export function Main() {
-  const [mainUrls, setMainUrl] = useState<MainResponse['mainUrls'] | null>(null);
+  const [mainInfos, setMainInfos] = useState<MainResponse['mainInfos'] | null>(null);
   const [articles, setArticles] = useState<MainResponse['articles']>([]);
-  const [menuUrls, setMenuUrls] = useState<MainResponse['menuUrls'] | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchMainResponse();
       if (data) {
-        setMainUrl(data.mainUrls);
+        setMainInfos(data.mainInfos);
         setArticles(data.articles);
-        setMenuUrls(data.menuUrls);
       }
     };
 
     fetchData();
   }, []);
 
-  if (!(mainUrls && articles && menuUrls)) {
+  if (!(mainInfos && articles)) {
     return <LoadingPage />;
   }
 
   return (
     <Stack gap={5} className="col-md-5 mx-auto align-items-center pt-5 pb-5">
       
-      <Image src={mainUrls.picture} roundedCircle={true} />
+      <Image src={mainInfos.picture} roundedCircle={true} />
 
-      <p className="pt-3 pb-3">{mainUrls.shortIntro}</p>
+      <p className="pt-3 pb-3">{mainInfos.shortIntro}</p>
 
       <Link to={'me'}>
         <Button 

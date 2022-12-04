@@ -17,15 +17,11 @@ export type Page =
   'admin';
 
 export interface MainResponse {
-  mainUrls: {
+  mainInfos: {
     picture: Url;
     shortIntro: Url;
   };
   articles: Article[];
-  menuUrls: {
-    me: Url;
-    articles: Url;
-  };
 }
 
 export interface CurrentPageArticlesResponse {
@@ -39,11 +35,11 @@ export interface CurrentPageArticlesResponse {
 
 export interface MeResponse {
   profile: Url;
-  shortIntro: Url;
-  education: Url;
-  workExperience: Url;
-  compSci: Url;
-  hobbies: Url;
+  shortIntro: string;
+  education: string;
+  workExperience: string;
+  compSci: string;
+  hobbies: string;
 }
 
 export interface LoginDTO {
