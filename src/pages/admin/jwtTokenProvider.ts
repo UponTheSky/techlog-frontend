@@ -1,15 +1,17 @@
 // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#emulating_private_methods_with_closures
 
 export const jwtTokenProvider = (() => {
-  let token: string | null = null;
+  const storage = window.localStorage;
 
   const set = (arg: string) => {
-    token = arg;
+    storage.setItem('token', arg);
   };
+
+  const get = () => storage.getItem('token');
 
   return {
     value() {
-      return token;
+      return get();
     },
 
     setToken(arg: string) {

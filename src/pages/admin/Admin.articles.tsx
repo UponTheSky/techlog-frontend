@@ -55,8 +55,7 @@ export function AdminArticlesPage() {
     }
   };
 
-  if (!(token && pageInfo && articles)) {
-    {console.log(token)}
+  if (!token) {
     return <LoadingPage />;
   }
 
@@ -83,8 +82,8 @@ export function AdminArticlesPage() {
         ))}
       </Container>
       <CustomPagination 
-        totalPagesCount={pageInfo.totalPagesCount} 
-        currentPage={pageInfo.currentPage} 
+        totalPagesCount={pageInfo ? pageInfo.totalPagesCount : 0} 
+        currentPage={pageInfo ? pageInfo.currentPage : 0} 
         handleSetCurrentPage={handleSetCurrentPage}
       />
     </Stack>
