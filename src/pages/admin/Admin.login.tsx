@@ -1,7 +1,8 @@
-import React, { ChangeEvent, useState, useContext } from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { login } from '../../api/admin';
-import { TokenDispatchContext } from './adminContext';
+import { jwtTokenProvider } from './jwtTokenProvider';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -9,8 +10,7 @@ import Button from 'react-bootstrap/Button';
 export function AdminLoginPage() {
   const [userId, setUserId] = useState<string>('user ID');
   const [password, setPassword] = useState<string>('password');
-
-  const dispatch = useContext(TokenDispatchContext);
+  const navigate = useNavigate();
 
   const handleSetEvent = (
     setFunction: (typeof setUserId| typeof setPassword)
@@ -19,8 +19,11 @@ export function AdminLoginPage() {
   };
 
   const handleLogin = async () => {
-    const token = await login(userId, password);
-    token && dispatch(token);
+    const response = await login(userId, password);
+    if (response) {
+      jwtTokenProvider.setToken(response.token);
+      navigate('/admin/articles');
+    }
   };
 
   return (

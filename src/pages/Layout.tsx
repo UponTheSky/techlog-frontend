@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 
 import { Footer } from '../components/Footer';
 
 export function Layout() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    navigate("main");    
+    if (location.pathname === '/') {
+      navigate("main");    
+    }
   }, []);
 
   return (

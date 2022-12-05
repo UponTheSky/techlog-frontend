@@ -1,4 +1,4 @@
-import { CurrentPageArticlesResponse, Article, LoginDTO } from '../types';
+import { CurrentPageArticlesResponse, Article, LoginDTO, LoginResponse } from '../types';
 import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from './axios';
 
 const adminUrl = '/api/admin';
@@ -32,4 +32,4 @@ export const deleteArticle = (
 export const login = (
   userId: string, 
   password: string
-) => makePostRequest<LoginDTO, string>(`${adminUrl}/login`)({ userId, password });
+) => makePostRequest<LoginDTO, LoginResponse>(`${adminUrl}/login`)({ userId, password });

@@ -34,15 +34,22 @@ export interface CurrentPageArticlesResponse {
 }
 
 export interface MeResponse {
-  profile: Url;
-  shortIntro: string;
-  education: string;
-  workExperience: string;
-  compSci: string;
-  hobbies: string;
+  meInfos: {
+    profile: Url;
+    shortIntro: string;
+    education: string;
+    workExperience: string;
+    compSci: string;
+    hobbies: string;
+    externalLinks: string;
+  }
 }
 
 export interface LoginDTO {
   userId: string;
   password: string;
+}
+
+export interface LoginResponse { 
+  token: string;
 }

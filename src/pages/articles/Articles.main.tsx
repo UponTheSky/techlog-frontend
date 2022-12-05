@@ -42,7 +42,12 @@ export function ArticlesMainPage() {
   };
 
   if (!(pageInfo && articles)) {
-    return <LoadingPage />;
+    return (
+      <div>
+        <PreviousNavbar />
+        <LoadingPage />;
+      </div>
+    );
   }
 
   return (

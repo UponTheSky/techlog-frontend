@@ -1,21 +1,17 @@
-import React, { useEffect, useReducer } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-
-import { tokenReducer, TokenContext, TokenDispatchContext } from './adminContext'; 
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 
 export function AdminMainPage() {
-  const [token, dispatch] = useReducer(tokenReducer, null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    navigate('articles');
+    if (location.pathname === '/admin') {
+      navigate('articles');
+    }
   }, []);
 
   return (
-    <TokenContext.Provider value={token}>
-      <TokenDispatchContext.Provider value={dispatch}>
-        <Outlet />
-      </TokenDispatchContext.Provider>
-    </TokenContext.Provider>
+    <Outlet />
   );
 }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 
 
 export function PreviousNavbar() {
@@ -10,11 +11,11 @@ export function PreviousNavbar() {
   const handleBacktoPreviousPage = () => { navigate(-1) };
 
   return (
-    <Navbar sticky="top">
+    <Navbar bg="light" variant="dark" sticky="top">
       <Container>
-        <Navbar.Brand onClick={handleBacktoPreviousPage}>
+        <Button variant="primary" onClick={handleBacktoPreviousPage}>
           {"< Go Back to the Previous Page"}
-        </Navbar.Brand>
+        </Button>
       </Container>
     </Navbar>
   );

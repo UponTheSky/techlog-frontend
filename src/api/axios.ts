@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { rawListeners } from 'process';
 import { BACKEND_URL } from '../consts';
 
 const apiClient = axios.create({ 

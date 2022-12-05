@@ -1,9 +1,10 @@
-import React, { ChangeEventHandler, useState, useContext } from 'react';
+import React, { ChangeEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { createArticle } from '../../api/admin';
-import { TokenContext } from './adminContext';
+import { jwtTokenProvider } from './jwtTokenProvider';
 
+import { LoadingPage } from '../Loading';
 import { PreviousNavbar } from '../../components/previousNavbar';
 
 import Container from 'react-bootstrap/Container';
@@ -20,7 +21,7 @@ export function AdminArticlesCreatePage() {
   const [content, setContent] = useState<string>('');
   
   const navigate = useNavigate();
-  const token = useContext(TokenContext);
+  const token = jwtTokenProvider.value();
 
   const handleCreate = async () => {
     const newArticle = token && await createArticle({ title, excerpt, content }, token);
@@ -43,7 +44,7 @@ export function AdminArticlesCreatePage() {
   };
 
   if (!token) {
-    throw new Error('Unauthorized: either no token, or the current token is invalid');
+    return <LoadingPage />;
   }
 
   return (

@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { Article, CurrentPageArticlesResponse } from '../../types';
-import { TokenContext } from './adminContext';
 import { fetchCurrentPageArticlesResponse, deleteArticle } from '../../api/admin';
+import { jwtTokenProvider } from './jwtTokenProvider';
 
 import { LoadingPage } from '../Loading';
 import { ArticleRow } from '../../components/ArticleRow';
@@ -20,7 +20,7 @@ export function AdminArticlesPage() {
   const [pageInfo, setPageInfo] = useState<CurrentPageArticlesResponse['info'] | null>(null);
   const [articles, setArticles] = useState<Article[]>([]);
 
-  const token = useContext(TokenContext);
+  const token = jwtTokenProvider.value();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,11 +55,8 @@ export function AdminArticlesPage() {
     }
   };
 
-  if (!token) {
-    throw new Error('Unauthorized: either no token, or the current token is invalid');
-  }
-
-  if (!(pageInfo && articles)) {
+  if (!(token && pageInfo && articles)) {
+    {console.log(token)}
     return <LoadingPage />;
   }
 

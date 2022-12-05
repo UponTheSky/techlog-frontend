@@ -31,6 +31,7 @@ export const adminMainRoute: RouteObject = {
   element: <AdminMainPage />,
   children: [
     adminArticlesRoute,
+    adminArticlesCreateRoute,
     adminArticlesUpdateRoute,
     adminLoginRoute
   ]

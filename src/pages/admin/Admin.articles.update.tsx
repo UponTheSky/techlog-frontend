@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext, ChangeEventHandler } from 'react';
+import React, { useState, useEffect, ChangeEventHandler } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Article } from '../../types';
+import { jwtTokenProvider } from './jwtTokenProvider';
 import { fetchIndividualArticlesResponse, updateArticle } from '../../api/admin';
-import { TokenContext } from './adminContext';
 
 import { LoadingPage } from '../Loading';
 import { PreviousNavbar } from '../../components/previousNavbar';
@@ -23,7 +23,7 @@ export function AdminArticlesUpdatePage() {
   const [content, setContent] = useState<string>('');
   const [originalArticle, setOriginalArticle] = useState<Article | null>(null);
 
-  const token = useContext(TokenContext);
+  const token = jwtTokenProvider.value();
 
   useEffect(() => {
     const fetchData = async (articleId: Article['articleId']) => {
@@ -79,8 +79,8 @@ export function AdminArticlesUpdatePage() {
   if (!token) {
     throw new Error('Unauthorized: either no token, or the current token is invalid');
   }
-
-  if (!originalArticle) {
+  
+  if (!(token && originalArticle)) {
     return <LoadingPage />;
   }
 

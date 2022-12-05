@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from './pages/ErrorPage';
 import { Layout } from './pages/Layout';
 
