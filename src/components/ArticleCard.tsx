@@ -6,6 +6,7 @@ import { EXCERPT_LIMIT_SIZE } from '../consts';
 import { parseTimestamp } from '../utils';
 
 import Card from 'react-bootstrap/Card';
+import './ArticleCard.css';
 
 type ArticleCardProps = Pick<
   Article, 'articleId' | 'thumbnail' | 'title' | 'excerpt' | 'updatedAt'
@@ -25,7 +26,7 @@ export function ArticleCard({
   }
 
   return (
-    <Card style={{ width: '18rem' }} onClick={handleCardOnClick}> 
+    <Card style={{ width: '18rem' }} onClick={handleCardOnClick} className="cursor-pointer"> 
       <Card.Img variant="top" src={thumbnail ?? undefined}  />
       <Card.Body>
         <Card.Title>{title}</Card.Title>

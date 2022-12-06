@@ -29,7 +29,10 @@ export function ArticlesIndividualPage() {
   return (
     <SingleArticle articleInfo={article}>
       <ReactMarkdown className="text-break">{article.excerpt ?? ''}</ReactMarkdown>
-      <ReactMarkdown className="text-break">{article.content ?? ''}</ReactMarkdown>    
+      <ReactMarkdown 
+        className="text-break"
+      >{article.content ?? ''}
+      </ReactMarkdown>    
     </SingleArticle>
   );
 }
