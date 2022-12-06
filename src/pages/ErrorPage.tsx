@@ -11,8 +11,9 @@ export function ErrorPage() {
       <h2>Sorry, we have an error</h2>
       <p>
         {`
-          We have the following error: ${error instanceof Error && error.message}.\n
-          We will fix the issue as fast as we can.\n
+          We have the following error: ${error instanceof Error && error.message}.
+
+          We will fix the issue as fast as we can.
         `}        
       </p>
 

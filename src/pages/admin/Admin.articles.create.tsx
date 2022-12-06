@@ -10,8 +10,6 @@ import { PreviousNavbar } from '../../components/previousNavbar';
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 
@@ -26,8 +24,8 @@ export function AdminArticlesCreatePage() {
   const handleCreate = async () => {
     const newArticle = token && await createArticle({ title, excerpt, content }, token);
     if (newArticle) {
-      alert(`A new article with id: ${newArticle.articleId} has been successfully created!`);
-      navigate('articles');
+      alert(`A new article with title: <${title}> has been successfully created!`);
+      navigate('/admin/articles');
     }
   };
 
@@ -64,7 +62,8 @@ export function AdminArticlesCreatePage() {
               rows={5} 
               cols={100}
               onChange={handleExcerptOnChange}
-            >{excerpt}</Form.Control>
+              value={excerpt}
+            />
           </Form.Group>
           <Form.Group controlId="Admin.articles.create.content">
             <Form.Label>Content:</Form.Label>
@@ -73,16 +72,11 @@ export function AdminArticlesCreatePage() {
               rows={10} 
               cols={100}
               onChange={handleContentOnChange}
-            >{content}</Form.Control>
+              value={content}
+            />
           </Form.Group>
         </Form>
-        <Container>
-          <Row className="justify-content-md-center">
-            <Col xs lg="2">
-              <Button variant="success" className="w-75" onClick={handleCreate}>Create a new article</Button>
-            </Col>
-          </Row>
-        </Container>
+        <Button variant="success" onClick={handleCreate}>Create a new article</Button>
       </Stack>
     </Container>
   );

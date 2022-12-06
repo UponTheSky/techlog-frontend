@@ -1,5 +1,3 @@
-export const DEFAULT_THUMBNAIL = `${__dirname}/../public/logo192.png`;
-
 export const EXCERPT_LIMIT_SIZE = 35;
 
 export const MAIN_ARTICLES_PER_ROW = 2;

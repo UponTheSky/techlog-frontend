@@ -28,7 +28,6 @@ export function Main() {
         setArticles(data.articles);
       }
     };
-
     fetchData();
   }, []);
 
@@ -54,9 +53,9 @@ export function Main() {
       
       <Row xs={1} md={MAIN_ARTICLES_PER_ROW} className="g-4">
         {articles.map(({ articleId, thumbnail, title, excerpt, updatedAt }) => (
-          <Col>
+          <Col key={articleId}>
             <ArticleCard 
-              key={articleId}
+              articleId={articleId}
               thumbnail={thumbnail}
               title={title}
               excerpt={excerpt}

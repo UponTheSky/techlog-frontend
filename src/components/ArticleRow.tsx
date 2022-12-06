@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Article } from '../types';
+import { parseTimestamp } from '../utils';
 
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -24,15 +25,15 @@ export function ArticleRow({
 }: ArticleAdminProps) {
 
   return (
-    <Row >
-      <Col xs lg="3">{articleId}</Col>
-      <Col xs lg="3">{title}</Col>
-      <Col xs lg="3">{createdAt.toLocaleDateString()}</Col>
-      <Col xs lg="3">{updatedAt.toLocaleDateString()}</Col>
-      <Col xs lg="3">
+    <Row className="pb-1">
+      <Col xs lg="2">{articleId.slice(0, 10) + '...'}</Col>
+      <Col xs lg="2">{title}</Col>
+      <Col xs lg="2">{parseTimestamp(createdAt)}</Col>
+      <Col xs lg="2">{parseTimestamp(updatedAt)}</Col>
+      <Col xs lg="2">
         <Button variant="warning" size="sm" onClick={handleUpdate}>Edit</Button>
       </Col>
-      <Col xs lg="3">
+      <Col xs lg="2">
         <Button variant="danger" size="sm" onClick={handleDelete}>Delete</Button>
       </Col>
     </Row>

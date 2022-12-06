@@ -1,20 +1,15 @@
-export type Url = string;
+type Url = string;
 
 export interface Article {
   id: number
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   thumbnail: string | null
   title: string
   excerpt: string | null
   content: string | null
   articleId: string
 }
-
-export type Page = 
-  'main' | 
-  'articles' | 
-  'admin';
 
 export interface MainResponse {
   mainInfos: {

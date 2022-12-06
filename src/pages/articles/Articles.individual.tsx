@@ -19,7 +19,6 @@ export function ArticlesIndividualPage() {
         setArticle(data);
       }
     };
-
     articleId && fetchData(articleId);
   }, []);
 
@@ -29,6 +28,7 @@ export function ArticlesIndividualPage() {
 
   return (
     <SingleArticle articleInfo={article}>
+      <ReactMarkdown className="text-break">{article.excerpt ?? ''}</ReactMarkdown>
       <ReactMarkdown className="text-break">{article.content ?? ''}</ReactMarkdown>    
     </SingleArticle>
   );

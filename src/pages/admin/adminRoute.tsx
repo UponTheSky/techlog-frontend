@@ -17,7 +17,7 @@ const adminArticlesCreateRoute: RouteObject = {
 };
 
 const adminArticlesUpdateRoute: RouteObject = {
-  path: 'articles/update/:articlesId',
+  path: 'articles/update/:articleId',
   element: <AdminArticlesUpdatePage />
 };
 

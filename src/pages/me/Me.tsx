@@ -22,7 +22,6 @@ export function MePage() {
         setMeInfo(data.meInfos);
       }
     };
-
     fetchData();
   }, []);
 

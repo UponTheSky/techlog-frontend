@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Article } from '../types';
-import { DEFAULT_THUMBNAIL } from '../consts';
+import { parseTimestamp } from '../utils';
 
 import { PreviousNavbar } from './previousNavbar';
 
@@ -18,9 +18,9 @@ export function SingleArticle({ articleInfo, children }: SingleArticleProps ) {
     <Container className="pt-2 pb-5">
       <PreviousNavbar />
       <Stack gap={3} className="col-md-8 mx-auto pt-5 align-items-center">
-        <Image src={articleInfo.thumbnail ?? DEFAULT_THUMBNAIL} />
+        <Image src={articleInfo.thumbnail ?? undefined} />
         <h2>{articleInfo.title}</h2>
-        <span className="pb-5">Created at: {articleInfo.createdAt.toLocaleDateString()} Updated at: {articleInfo.updatedAt.toLocaleDateString()}</span>
+        <span className="pb-5">Created at: {parseTimestamp(articleInfo.createdAt)} Updated at: {parseTimestamp(articleInfo.updatedAt)}</span>
         {children}
       </Stack>
     </Container>

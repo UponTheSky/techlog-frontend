@@ -13,10 +13,12 @@ import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 
 export function AdminArticlesPage() {
-  const { currentPage } = useParams();
+  const { currentPageParams } = useParams();
+  let currentPage = Number(currentPageParams ?? 0);
   const [pageInfo, setPageInfo] = useState<CurrentPageArticlesResponse['info'] | null>(null);
   const [articles, setArticles] = useState<Article[]>([]);
 
@@ -24,6 +26,7 @@ export function AdminArticlesPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    currentPage = pageInfo ? pageInfo.currentPage : currentPage;
     const fetchData = async (currentPage: number) => {
       const data = token && await fetchCurrentPageArticlesResponse(currentPage, token);
       if (data) {
@@ -31,9 +34,8 @@ export function AdminArticlesPage() {
         setArticles(data.articles);
       }
     };
-
-    currentPage && fetchData(Number(currentPage));
-  }, [pageInfo]);
+    fetchData(currentPage);
+  }, [pageInfo?.currentPage, pageInfo?.totalArticlesCount]);
 
   const handleSetCurrentPage = (pageNumber: number) => () => {
     setPageInfo(prev => {
@@ -45,14 +47,27 @@ export function AdminArticlesPage() {
   };
 
   const handleUpdate = (articleId: Article['articleId']) => () => {
-    navigate(`articles/:${articleId}`);
+    navigate(`/admin/articles/update/${articleId}`);
   };
 
   const handleDelete = (articleId: Article['articleId']) => async () => {
     if (token && window.confirm("Do you really want to delete the article? You can't recover the data afterward")) {
       const deletedArticle = await deleteArticle(articleId, token);
       deletedArticle && alert(`The article ${deletedArticle.articleId}: ${deletedArticle.title} has been successfully deleted`);
+      setPageInfo(prev => { 
+        if (prev) {
+          return {
+            ...prev, 
+            totalArticlesCount: prev.totalArticlesCount - 1 
+          }
+        }
+        return null;
+      })
     }
+  };
+
+  const handleCreateButton = () => {
+    navigate('/admin/articles/create');
   };
 
   if (!token) {
@@ -64,10 +79,12 @@ export function AdminArticlesPage() {
       <h2>Recent Articles List</h2>
       <Container className="justify-content-md-center pb-5">
         <Row className="pb-3">
-          <Col xs lg="1">Article ID</Col>
-          <Col xs lg="1">Title</Col>
-          <Col xs lg="1">Created At</Col>
-          <Col xs lg="1">Updated At</Col>
+          <Col xs lg="2">Article ID</Col>
+          <Col xs lg="2">Title</Col>
+          <Col xs lg="2">Created At</Col>
+          <Col xs lg="2">Updated At</Col>
+          <Col xs lg="2">Edit</Col>
+          <Col xs lg="2">Delete</Col>
         </Row>
         {articles.map(({articleId, title, createdAt, updatedAt}) => (
           <ArticleRow 
@@ -81,6 +98,7 @@ export function AdminArticlesPage() {
           />
         ))}
       </Container>
+      <Button variant="success" onClick={handleCreateButton}>Create an Article</Button>
       <CustomPagination 
         totalPagesCount={pageInfo ? pageInfo.totalPagesCount : 0} 
         currentPage={pageInfo ? pageInfo.currentPage : 0} 

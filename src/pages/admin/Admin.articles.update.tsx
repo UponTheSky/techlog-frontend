@@ -60,6 +60,7 @@ export function AdminArticlesUpdatePage() {
         setTitle(updatedArticle.title);
         setExcerpt(updatedArticle.excerpt ?? '');
         setContent(updatedArticle.content ?? '');
+        alert("Updating the current article has been successful");
       }
     }
   };
@@ -76,10 +77,6 @@ export function AdminArticlesUpdatePage() {
     setContent(event.target.value);
   };
 
-  if (!token) {
-    throw new Error('Unauthorized: either no token, or the current token is invalid');
-  }
-  
   if (!(token && originalArticle)) {
     return <LoadingPage />;
   }
@@ -101,7 +98,8 @@ export function AdminArticlesUpdatePage() {
               rows={5} 
               cols={100}
               onChange={handleExcerptOnChange}
-            >{excerpt}</Form.Control>
+              value={excerpt}
+            />
           </Form.Group>
           <Form.Group controlId="Admin.articles.update.content">
             <Form.Label>Content:</Form.Label>
@@ -110,7 +108,8 @@ export function AdminArticlesUpdatePage() {
               rows={10} 
               cols={100}
               onChange={handleContentOnChange}
-            >{content}</Form.Control>
+              value={content}
+            />
           </Form.Group>
         </Form>
         <Container>

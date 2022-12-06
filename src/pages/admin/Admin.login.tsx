@@ -13,7 +13,7 @@ export function AdminLoginPage() {
   const navigate = useNavigate();
 
   const handleSetEvent = (
-    setFunction: (typeof setUserId| typeof setPassword)
+    setFunction: (typeof setUserId | typeof setPassword)
   ) => (event: ChangeEvent<HTMLInputElement>) => {
     setFunction(event.target.value);
   };

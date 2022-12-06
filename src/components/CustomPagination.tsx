@@ -13,14 +13,14 @@ export function CustomPagination({
   handleSetCurrentPage
 }: PaginationProps) {
   return (
-    <Pagination size="lg">
+    <Pagination size="lg" className="col-md-3 mx-auto">
       <Pagination.Prev />
       {Array(totalPagesCount).fill(1).map((number, idx) => (
         <Pagination.Item 
           key={idx} 
           active={number + idx - 1 === currentPage} 
           onClick={handleSetCurrentPage(number + idx - 1)}
-        > {/* wrap with <Link>*/}
+        >
           {number + idx}
         </Pagination.Item>
       ))}

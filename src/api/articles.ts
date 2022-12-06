@@ -9,4 +9,4 @@ export const fetchCurrentPageArticlesResponse = (
 
 export const fetchIndividualArticlesResponse = (
   articleId: Article['articleId']
-) => makeGetRequest<Article>(`${articlesUrl}?/${articleId}`)();
+) => makeGetRequest<Article>(`${articlesUrl}/${articleId}`)();
